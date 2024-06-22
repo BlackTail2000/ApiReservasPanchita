@@ -1,12 +1,15 @@
 package com.cibertec.apireservaspanchita.model.bd;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Date;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Horario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
