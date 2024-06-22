@@ -1,4 +1,4 @@
-package com.cibertec.apireservaspanchita.model;
+package com.cibertec.apireservaspanchita.model.bd;
 
 public enum Estado {
     PENDIENTE,
