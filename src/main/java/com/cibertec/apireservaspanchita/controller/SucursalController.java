@@ -18,7 +18,6 @@ public class SucursalController {
 
     @PostMapping
     public ResponseEntity<SucursalDto> registrar(@RequestBody SucursalDto sucursalDto) {
-        System.out.println(sucursalDto.getCantidadMesa());
         SucursalDto sucursalRegister = iSucursalService.registrar(sucursalDto);
         return new ResponseEntity<>(sucursalRegister, HttpStatus.CREATED);
     }
