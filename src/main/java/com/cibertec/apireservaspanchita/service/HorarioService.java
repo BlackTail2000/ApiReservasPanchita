@@ -7,6 +7,7 @@ import com.cibertec.apireservaspanchita.model.exception.ResourceNotFoundExceptio
 import com.cibertec.apireservaspanchita.model.mapper.HorarioMapper;
 import com.cibertec.apireservaspanchita.repository.HorarioRepository;
 import com.cibertec.apireservaspanchita.repository.SucursalRepository;
+import com.cibertec.apireservaspanchita.utils.DateUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class HorarioService implements IHorarioService {
         Sucursal sucursal = sucursalRepository.findById(horarioDto.getIdSucursal())
                 .orElseThrow(() ->
                         new ResourceNotFoundException("No se encontró la sucursal con el id: " + horarioDto.getIdSucursal()));
+        horarioDto.setFecha(horarioDto.getFecha());
         Horario horario = HorarioMapper.mapToHorario(horarioDto, sucursal);
         horarioRepository.save(horario);
         return HorarioMapper.mapToHorarioDto(horario);
