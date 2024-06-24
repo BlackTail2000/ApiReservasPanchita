@@ -13,7 +13,7 @@ public class UsuarioController {
 
     private IUsuarioService iUsuarioService;
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<UsuarioDto> login(@RequestBody UsuarioDto usuarioDto) {
         UsuarioDto usuarioLogin = iUsuarioService.loginUsuario(usuarioDto.getUsername(), usuarioDto.getPassword());
         return ResponseEntity.ok(usuarioLogin);
