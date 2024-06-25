@@ -11,6 +11,7 @@ public class PlatoMapper {
         return new PlatoDto(
                 plato.getIdPlato(),
                 plato.getNombrePlato(),
+                plato.getFoto(),
                 plato.getMenu().getIdMenu(),
                 plato.getCategoria().getIdCategoria()
         );
@@ -20,6 +21,7 @@ public class PlatoMapper {
         return new Plato(
                 platoDto.getIdPlato(),
                 platoDto.getNombrePlato(),
+                platoDto.getFoto(),
                 menu,
                 categoria
         );
