@@ -12,6 +12,7 @@ import lombok.Setter;
 public class PlatoDto {
     private Integer idPlato;
     private String nombrePlato;
+    private String foto;
     private Integer idMenu;
     private Integer idCategoria;
 }

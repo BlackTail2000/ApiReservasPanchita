@@ -13,6 +13,7 @@ public class Plato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPlato;
     private String nombrePlato;
+    private String foto;
     @ManyToOne
     @JoinColumn(name = "id_menu")
     private Menu menu;
