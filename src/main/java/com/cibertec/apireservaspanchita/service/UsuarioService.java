@@ -16,12 +16,17 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public UsuarioDto registrar(UsuarioDto usuarioDto) {
-        return null;
+        Usuario usuario = UsuarioMapper.mapToUsuario(usuarioDto);
+        usuarioRepository.save(usuario);
+        return UsuarioMapper.mapToUsuarioDto(usuario);
     }
 
     @Override
     public UsuarioDto buscarPorId(Integer idUsuario) {
-        return null;
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("No se encontró el usuario con id: " + idUsuario));
+        return UsuarioMapper.mapToUsuarioDto(usuario);
     }
 
     @Override
@@ -34,6 +39,19 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public UsuarioDto actualizarUsuario(Integer idUsuario, UsuarioDto usuarioDto) {
-        return null;
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("No se encontró el usuario con id: " + idUsuario));
+
+        usuario.setNombres(usuarioDto.getNombres());
+        usuario.setApellidos(usuarioDto.getApellidos());
+        usuario.setDni(usuarioDto.getDni());
+        usuario.setEmail(usuarioDto.getEmail());
+        usuario.setRol(usuarioDto.getRol());
+        usuario.setFechaNac(usuarioDto.getFechaNac());
+        usuario.setPassword(usuarioDto.getPassword());
+
+        Usuario updatedUsuario = usuarioRepository.save(usuario);
+        return UsuarioMapper.mapToUsuarioDto(updatedUsuario);
     }
 }
