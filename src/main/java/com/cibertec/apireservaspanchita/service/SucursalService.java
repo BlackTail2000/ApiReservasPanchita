@@ -50,7 +50,6 @@ public class SucursalService implements ISucursalService {
         sucursal.setLat(sucursalDto.getLat());
         sucursal.setLongitud(sucursalDto.getLongitud());
         sucursal.setFoto(sucursalDto.getFoto());
-        sucursal.setCantidadMesa(sucursalDto.getCantidadMesa());
 
         Sucursal updatedSucursal = sucursalRepository.save(sucursal);
         return SucursalMapper.mapToSucursalDto(updatedSucursal);

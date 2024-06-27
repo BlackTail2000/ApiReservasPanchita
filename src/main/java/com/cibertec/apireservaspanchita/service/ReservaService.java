@@ -1,15 +1,11 @@
 package com.cibertec.apireservaspanchita.service;
 
-import com.cibertec.apireservaspanchita.model.bd.Horario;
-import com.cibertec.apireservaspanchita.model.bd.Reserva;
-import com.cibertec.apireservaspanchita.model.bd.Sucursal;
+import com.cibertec.apireservaspanchita.model.bd.*;
 import com.cibertec.apireservaspanchita.model.dto.ReservaDto;
 import com.cibertec.apireservaspanchita.model.exception.ResourceNotFoundException;
 import com.cibertec.apireservaspanchita.model.mapper.HorarioMapper;
 import com.cibertec.apireservaspanchita.model.mapper.ReservaMapper;
-import com.cibertec.apireservaspanchita.repository.HorarioRepository;
-import com.cibertec.apireservaspanchita.repository.ReservaRepository;
-import com.cibertec.apireservaspanchita.repository.SucursalRepository;
+import com.cibertec.apireservaspanchita.repository.*;
 import com.cibertec.apireservaspanchita.utils.DateUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +19,8 @@ public class ReservaService implements IReservaService {
     private ReservaRepository reservaRepository;
     private SucursalRepository sucursalRepository;
     private HorarioRepository horarioRepository;
+    private UsuarioRepository usuarioRepository;
+    private MesaRepository mesaRepository;
 
     @Override
     public ReservaDto registrar(ReservaDto reservaDto) {
@@ -32,8 +30,13 @@ public class ReservaService implements IReservaService {
         Horario horario = horarioRepository.findById(reservaDto.getIdHorario())
                 .orElseThrow(() ->
                         new ResourceNotFoundException("No se encontró el horario con el id: " + reservaDto.getIdHorario()));
-        reservaDto.setFechaReserva(reservaDto.getFechaReserva());
-        Reserva reserva = ReservaMapper.mapToReserva(reservaDto, horario, sucursal);
+        Usuario usuario = usuarioRepository.findById(reservaDto.getIdUsuario())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("No se encontró el usuario con el id: " + reservaDto.getIdUsuario()));
+        Mesa mesa = mesaRepository.findById(reservaDto.getIdMesa())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("No se encontró la mesa con el id: " + reservaDto.getIdMesa()));
+        Reserva reserva = ReservaMapper.mapToReserva(reservaDto, horario, sucursal, usuario, mesa);
         reservaRepository.save(reserva);
         return ReservaMapper.mapToReservaDto(reserva);
     }
@@ -57,10 +60,13 @@ public class ReservaService implements IReservaService {
         Horario horario = horarioRepository.findById(reservaDto.getIdHorario())
                 .orElseThrow(() ->
                         new ResourceNotFoundException("No se encontró el horario con el id: " + reservaDto.getIdHorario()));
-
+        Mesa mesa = mesaRepository.findById(reservaDto.getIdMesa())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("No se encontró la mesa con el id: " + reservaDto.getIdMesa()));
         reserva.setCantidadComensales(reservaDto.getCantidadComensales());
         reserva.setHorario(horario);
         reserva.setSucursal(sucursal);
+        reserva.setMesa(mesa);
         reserva.setFechaReserva(reservaDto.getFechaReserva());
         reserva.setEstado(reservaDto.getEstado());
 

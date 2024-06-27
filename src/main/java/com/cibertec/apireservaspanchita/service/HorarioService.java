@@ -26,7 +26,6 @@ public class HorarioService implements IHorarioService {
         Sucursal sucursal = sucursalRepository.findById(horarioDto.getIdSucursal())
                 .orElseThrow(() ->
                         new ResourceNotFoundException("No se encontró la sucursal con el id: " + horarioDto.getIdSucursal()));
-        horarioDto.setFecha(horarioDto.getFecha());
         Horario horario = HorarioMapper.mapToHorario(horarioDto, sucursal);
         horarioRepository.save(horario);
         return HorarioMapper.mapToHorarioDto(horario);

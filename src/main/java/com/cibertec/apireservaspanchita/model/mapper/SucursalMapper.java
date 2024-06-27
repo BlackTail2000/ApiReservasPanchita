@@ -12,8 +12,7 @@ public class SucursalMapper {
                 sucursal.getDireccion(),
                 sucursal.getLat(),
                 sucursal.getLongitud(),
-                sucursal.getFoto(),
-                sucursal.getCantidadMesa()
+                sucursal.getFoto()
         );
     }
 
@@ -24,8 +23,7 @@ public class SucursalMapper {
                 sucursalDto.getDireccion(),
                 sucursalDto.getLat(),
                 sucursalDto.getLongitud(),
-                sucursalDto.getFoto(),
-                sucursalDto.getCantidadMesa()
+                sucursalDto.getFoto()
         );
     }
 }

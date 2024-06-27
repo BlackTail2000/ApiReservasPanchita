@@ -20,6 +20,8 @@ public class ReservaDto {
     private Integer cantidadComensales;
     private Integer idHorario;
     private Integer idSucursal;
+    private Integer idUsuario;
+    private Integer idMesa;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date fechaReserva;
     @Enumerated(EnumType.STRING)

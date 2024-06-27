@@ -21,6 +21,12 @@ public class Reserva {
     @ManyToOne
     @JoinColumn(name = "id_sucursal")
     private Sucursal sucursal;
+    @ManyToOne
+    @JoinColumn(name ="id_usuario")
+    private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "id_mesa")
+    private Mesa mesa;
     @Temporal(TemporalType.DATE)
     private Date fechaReserva;
     @Enumerated(EnumType.STRING)
