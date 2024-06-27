@@ -1,17 +1,21 @@
 package com.cibertec.apireservaspanchita.model.bd;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Menu {
+@Entity
+public class Mesa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idMenu;
+    private Integer idMesa;
+    private Integer cantSillas;
     @ManyToOne
     @JoinColumn(name = "id_sucursal")
     private Sucursal sucursal;

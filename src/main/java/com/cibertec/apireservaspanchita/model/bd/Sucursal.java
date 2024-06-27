@@ -20,5 +20,4 @@ public class Sucursal {
     private Double lat;
     private Double longitud;
     private String foto;
-    private Integer cantidadMesa;
 }
