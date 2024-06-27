@@ -9,7 +9,6 @@ public class HorarioMapper {
     public static HorarioDto mapToHorarioDto(Horario horario) {
         return new HorarioDto(
                 horario.getIdHorario(),
-                horario.getFecha(),
                 horario.getHoraInicio(),
                 horario.getHoraFin(),
                 horario.getSucursal().getIdSucursal()
@@ -19,7 +18,6 @@ public class HorarioMapper {
     public static Horario mapToHorario(HorarioDto horarioDto, Sucursal sucursal) {
         return new Horario(
                 horarioDto.getIdHorario(),
-                horarioDto.getFecha(),
                 horarioDto.getHoraInicio(),
                 horarioDto.getHoraFin(),
                 sucursal

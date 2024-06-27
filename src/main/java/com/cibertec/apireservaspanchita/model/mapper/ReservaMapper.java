@@ -1,8 +1,6 @@
 package com.cibertec.apireservaspanchita.model.mapper;
 
-import com.cibertec.apireservaspanchita.model.bd.Horario;
-import com.cibertec.apireservaspanchita.model.bd.Reserva;
-import com.cibertec.apireservaspanchita.model.bd.Sucursal;
+import com.cibertec.apireservaspanchita.model.bd.*;
 import com.cibertec.apireservaspanchita.model.dto.ReservaDto;
 
 public class ReservaMapper {
@@ -13,17 +11,21 @@ public class ReservaMapper {
                 reserva.getCantidadComensales(),
                 reserva.getHorario().getIdHorario(),
                 reserva.getSucursal().getIdSucursal(),
+                reserva.getUsuario().getIdUsuario(),
+                reserva.getMesa().getIdMesa(),
                 reserva.getFechaReserva(),
                 reserva.getEstado()
         );
     }
 
-    public static Reserva mapToReserva(ReservaDto reservaDto, Horario horario, Sucursal sucursal) {
+    public static Reserva mapToReserva(ReservaDto reservaDto, Horario horario, Sucursal sucursal, Usuario usuario, Mesa mesa) {
         return new Reserva(
                 reservaDto.getNumeroOrden(),
                 reservaDto.getCantidadComensales(),
                 horario,
                 sucursal,
+                usuario,
+                mesa,
                 reservaDto.getFechaReserva(),
                 reservaDto.getEstado()
         );
