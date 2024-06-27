@@ -14,8 +14,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class HorarioDto {
     private Integer idHorario;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date fecha;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Date horaInicio;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")

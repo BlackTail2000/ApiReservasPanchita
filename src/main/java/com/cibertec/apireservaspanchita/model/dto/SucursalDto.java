@@ -13,5 +13,4 @@ public class SucursalDto {
     private Double lat;
     private Double longitud;
     private String foto;
-    private Integer cantidadMesa;
 }
