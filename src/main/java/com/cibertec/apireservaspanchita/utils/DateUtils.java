@@ -18,4 +18,11 @@ public class DateUtils {
         }
         return date;
     }
+
+    public static Date addOneDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        return calendar.getTime();
+    }
 }
