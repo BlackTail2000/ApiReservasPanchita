@@ -12,7 +12,8 @@ import com.cibertec.apireservaspanchita.utils.DateUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -80,6 +81,29 @@ public class ReservaService implements IReservaService {
         reserva.setFechaReserva(reservaDto.getFechaReserva());
         reserva.setEstado(reservaDto.getEstado());
 
+        Reserva updatedReserva = reservaRepository.save(reserva);
+        return ReservaMapper.mapToReservaDto(updatedReserva);
+    }
+
+    @Override
+    public Optional<Reserva> listarPorId(Integer reservaId) {
+         Optional<Reserva> r =  reservaRepository.findById(reservaId);
+         return r;
+    }
+
+    /*Metodo que solo setea los campos necesarios para el finalizar reserva
+        agregando un campo mas a diferencia del anterior, que ahora tendra el HoraFin*/
+    @Override
+    public ReservaDto actualizar2(Integer reservaId, ReservaDto2 reservaDto2) {
+        Reserva reserva = reservaRepository.findById(reservaId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("No se encontró la reserva con el id: " + reservaId));
+        Horario horario = horarioRepository.findById(reservaDto2.getIdHorario())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("No se encontró el horario con el id: " + reservaDto2.getIdHorario()));
+        horario.setHoraFin(reservaDto2.getHoraFin());
+        reserva.setHorario(horario);
+        reserva.setEstado(reservaDto2.getEstado());
         Reserva updatedReserva = reservaRepository.save(reserva);
         return ReservaMapper.mapToReservaDto(updatedReserva);
     }

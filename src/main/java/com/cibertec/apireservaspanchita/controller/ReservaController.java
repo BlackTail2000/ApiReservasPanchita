@@ -1,5 +1,6 @@
 package com.cibertec.apireservaspanchita.controller;
 
+import com.cibertec.apireservaspanchita.model.bd.Reserva;
 import com.cibertec.apireservaspanchita.model.dto.ReservaDto;
 import com.cibertec.apireservaspanchita.model.dto.ReservaDto2;
 import com.cibertec.apireservaspanchita.service.IReservaService;
@@ -7,6 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/reserva")
@@ -31,6 +35,18 @@ public class ReservaController {
     public ResponseEntity<ReservaDto> actualizar(@PathVariable("id") Integer reservaId,
                                                  @RequestBody ReservaDto updatedReserva) {
         ReservaDto reservaDto = iReservaService.actualizar(reservaId, updatedReserva);
+        return ResponseEntity.ok(reservaDto);
+    }
+
+    @GetMapping("/web/{id}")
+    public ResponseEntity<Optional<Reserva>> listarPorId(@PathVariable("id") Integer reservaId) {
+        Optional<Reserva> reserva = iReservaService.listarPorId(reservaId);
+        return ResponseEntity.ok(reserva);
+    }
+    @PutMapping("/web/{id}")
+    public ResponseEntity<ReservaDto> actualizar2(@PathVariable("id") Integer reservaId,
+                                                 @RequestBody ReservaDto2 updatedReserva) {
+        ReservaDto reservaDto = iReservaService.actualizar2(reservaId, updatedReserva);
         return ResponseEntity.ok(reservaDto);
     }
 }
