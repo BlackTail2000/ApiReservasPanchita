@@ -15,9 +15,9 @@ import java.util.Locale;
 @NoArgsConstructor
 public class HorarioDto {
     private Integer idHorario;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = JsonFormat.DEFAULT_LOCALE)
     private Date horaInicio;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = JsonFormat.DEFAULT_LOCALE)
     private Date horaFin;
     private Integer idSucursal;
 }
