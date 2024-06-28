@@ -10,6 +10,8 @@ import com.cibertec.apireservaspanchita.repository.SucursalRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @AllArgsConstructor
 public class MesaService implements IMesaService {
@@ -49,5 +51,28 @@ public class MesaService implements IMesaService {
 
         Mesa updatedMesa = mesaRepository.save(mesa);
         return MesaMapper.mapToMesaDto(updatedMesa);
+    }
+
+    @Override
+    public Integer obtenerNroMesasPorSucursal(Integer idSucursal) {
+        Sucursal sucursal = sucursalRepository.findById(idSucursal)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("No se encontró la sucursal con id: " + idSucursal));
+        return mesaRepository.obtenerNroMesasPorSucursal(idSucursal);
+    }
+
+    @Override
+    public Integer obtenerNroMesasOcupadasPorFechaYSucursal(Date fecha, Integer idSucursal) {
+        Sucursal sucursal = sucursalRepository.findById(idSucursal)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("No se encontró la sucursal con id: " + idSucursal));
+        return mesaRepository.obtenerNroMesasPorFechaYSucursal(fecha, idSucursal);
+    }
+
+    @Override
+    public Integer obtenerNroMesasDisponiblesPorFechaYSucursal(Date fecha, Integer idSucursal) {
+        Integer nroMesas = this.obtenerNroMesasPorSucursal(idSucursal);
+        Integer nroMesasOcupadas = this.obtenerNroMesasOcupadasPorFechaYSucursal(fecha, idSucursal);
+        return nroMesas - nroMesasOcupadas;
     }
 }

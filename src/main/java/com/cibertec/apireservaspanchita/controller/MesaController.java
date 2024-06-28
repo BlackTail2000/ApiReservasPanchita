@@ -2,10 +2,13 @@ package com.cibertec.apireservaspanchita.controller;
 
 import com.cibertec.apireservaspanchita.model.dto.MesaDto;
 import com.cibertec.apireservaspanchita.service.IMesaService;
+import com.cibertec.apireservaspanchita.utils.DateUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @RestController
 @AllArgsConstructor
@@ -31,5 +34,13 @@ public class MesaController {
                                                   @RequestBody MesaDto updatedMesa) {
         MesaDto mesaDto = iMesaService.actualizarMesa(idMesa, updatedMesa);
         return ResponseEntity.ok(mesaDto);
+    }
+
+    @GetMapping("/disponible/{fec}/{idS}")
+    public ResponseEntity<Integer> obtenerNroMesasDisponiblesPorFechaYSucursal(@PathVariable("fec") String fecS,
+                                                                               @PathVariable("idS") Integer idS) {
+        Date fec = DateUtils.convertStringToDate(fecS);
+        Integer nroMesasDisponibles = iMesaService.obtenerNroMesasDisponiblesPorFechaYSucursal(fec, idS);
+        return ResponseEntity.ok(nroMesasDisponibles);
     }
 }
