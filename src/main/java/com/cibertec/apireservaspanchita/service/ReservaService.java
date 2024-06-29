@@ -4,9 +4,11 @@ import com.cibertec.apireservaspanchita.model.bd.*;
 import com.cibertec.apireservaspanchita.model.dto.HorarioDto;
 import com.cibertec.apireservaspanchita.model.dto.ReservaDto;
 import com.cibertec.apireservaspanchita.model.dto.ReservaDto2;
+import com.cibertec.apireservaspanchita.model.dto.ReservaDto3;
 import com.cibertec.apireservaspanchita.model.exception.ResourceNotFoundException;
 import com.cibertec.apireservaspanchita.model.mapper.HorarioMapper;
 import com.cibertec.apireservaspanchita.model.mapper.ReservaMapper;
+import com.cibertec.apireservaspanchita.model.mapper.ReservaMapper2;
 import com.cibertec.apireservaspanchita.repository.*;
 import com.cibertec.apireservaspanchita.utils.DateUtils;
 import lombok.AllArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -89,6 +92,26 @@ public class ReservaService implements IReservaService {
     public Optional<Reserva> listarPorId(Integer reservaId) {
          Optional<Reserva> r =  reservaRepository.findById(reservaId);
          return r;
+    }
+
+    @Override
+    public List<ReservaDto3> listarPorIdUsuarioYEstado(Integer idUsuario, Estado estado) {
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("No se encontró al usuario con id:" + idUsuario));
+        List<Reserva> listaReservas = reservaRepository.findAllByUsuario_idUsuarioAndEstado(idUsuario, estado);
+        return listaReservas.stream().map(ReservaMapper2::mapToReservaDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ReservaDto cancelarReserva(Integer reservaId) {
+        Reserva reserva = reservaRepository.findById(reservaId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("No se encontró la reserva con el id: " + reservaId));
+        reserva.setEstado(Estado.CANCELADO);
+        Reserva updatedReserva = reservaRepository.save(reserva);
+        return ReservaMapper.mapToReservaDto(updatedReserva);
     }
 
     /*Metodo que solo setea los campos necesarios para el finalizar reserva
