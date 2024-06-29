@@ -1,8 +1,10 @@
 package com.cibertec.apireservaspanchita.controller;
 
+import com.cibertec.apireservaspanchita.model.bd.Estado;
 import com.cibertec.apireservaspanchita.model.bd.Reserva;
 import com.cibertec.apireservaspanchita.model.dto.ReservaDto;
 import com.cibertec.apireservaspanchita.model.dto.ReservaDto2;
+import com.cibertec.apireservaspanchita.model.dto.ReservaDto3;
 import com.cibertec.apireservaspanchita.service.IReservaService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,6 +37,19 @@ public class ReservaController {
     public ResponseEntity<ReservaDto> actualizar(@PathVariable("id") Integer reservaId,
                                                  @RequestBody ReservaDto updatedReserva) {
         ReservaDto reservaDto = iReservaService.actualizar(reservaId, updatedReserva);
+        return ResponseEntity.ok(reservaDto);
+    }
+
+    @GetMapping("/usuario/{id}/{estado}")
+    public ResponseEntity<List<ReservaDto3>> listarReservasPorUsuarioYEstado(@PathVariable("id") Integer idUsuario,
+                                                                       @PathVariable("estado")Estado estado) {
+        List<ReservaDto3> listaReservas = iReservaService.listarPorIdUsuarioYEstado(idUsuario, estado);
+        return ResponseEntity.ok(listaReservas);
+    }
+
+    @PutMapping("/cancelar/{id}")
+    public ResponseEntity<ReservaDto> cancelarReserva(@PathVariable("id") Integer idReserva) {
+        ReservaDto reservaDto = iReservaService.cancelarReserva(idReserva);
         return ResponseEntity.ok(reservaDto);
     }
 
