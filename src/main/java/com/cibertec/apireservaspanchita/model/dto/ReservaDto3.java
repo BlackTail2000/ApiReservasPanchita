@@ -15,9 +15,15 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservaDto2 extends ReservaDto {
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", locale = JsonFormat.DEFAULT_LOCALE)
-    private Date horaInicio;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", locale = JsonFormat.DEFAULT_LOCALE)
-    private Date horaFin;
+public class ReservaDto3 {
+    private Integer numeroOrden;
+    private Integer cantidadComensales;
+    private HorarioDto horario;
+    private SucursalDto sucursal;
+    private UsuarioDto usuario;
+    private MesaDto mesa;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date fechaReserva;
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
 }
