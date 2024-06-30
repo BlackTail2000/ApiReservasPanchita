@@ -8,4 +8,5 @@ public interface IHorarioService {
     HorarioDto registrar(HorarioDto horarioDto);
     List<HorarioDto> listarPorSucursal(Integer sucursalId);
     HorarioDto buscarPorId(Integer horarioId);
+    Integer obtenerUltimoIdHorario();
 }

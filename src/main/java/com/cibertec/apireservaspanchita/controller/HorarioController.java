@@ -33,4 +33,9 @@ public class HorarioController {
         List<HorarioDto> horarioDto = iHorarioService.listarPorSucursal(sucursalId);
         return ResponseEntity.ok(horarioDto);
     }
+    @GetMapping("/ultimo-id")
+    public ResponseEntity<Integer> obtenerUltimoIdHorario() {
+        Integer ultimoId =iHorarioService.obtenerUltimoIdHorario();
+        return ResponseEntity.ok(ultimoId);
+    }
 }

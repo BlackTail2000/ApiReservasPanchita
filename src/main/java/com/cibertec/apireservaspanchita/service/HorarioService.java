@@ -45,4 +45,9 @@ public class HorarioService implements IHorarioService {
                         new ResourceNotFoundException("No se encontró el horario con el id: " + horarioId));
         return HorarioMapper.mapToHorarioDto(horario);
     }
+
+    public Integer obtenerUltimoIdHorario() {
+        Horario ultimoHorario = horarioRepository.findTopByOrderByIdHorarioDesc();
+        return ultimoHorario != null ? ultimoHorario.getIdHorario() : null;
+    }
 }

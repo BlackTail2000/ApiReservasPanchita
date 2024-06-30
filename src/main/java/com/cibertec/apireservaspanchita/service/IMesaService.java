@@ -11,4 +11,5 @@ public interface IMesaService {
     Integer obtenerNroMesasPorSucursal(Integer idSucursal);
     Integer obtenerNroMesasOcupadasPorFechaYSucursal(Date fecha, Integer idSucursal);
     Integer obtenerNroMesasDisponiblesPorFechaYSucursal(Date fecha, Integer idSucursal);
+
 }

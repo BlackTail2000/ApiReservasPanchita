@@ -23,6 +23,7 @@ public class ReservaService implements IReservaService {
     private HorarioRepository horarioRepository;
     private UsuarioRepository usuarioRepository;
     private MesaRepository mesaRepository;
+    private IMesaService mesaService;
 
     @Override
     public ReservaDto2 registrar(ReservaDto2 reservaDto2) {

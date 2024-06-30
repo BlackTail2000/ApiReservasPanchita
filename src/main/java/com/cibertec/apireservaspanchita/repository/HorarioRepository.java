@@ -13,4 +13,5 @@ public interface HorarioRepository extends JpaRepository<Horario, Integer> {
 
     @Query("Select H From Horario H Where H.sucursal.idSucursal=:idSucursal")
     List<Horario> findAllBySucursalId(@Param("idSucursal") Integer sucursalId);
+    Horario findTopByOrderByIdHorarioDesc();
 }

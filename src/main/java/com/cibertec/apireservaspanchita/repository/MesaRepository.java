@@ -18,4 +18,6 @@ public interface MesaRepository extends JpaRepository<Mesa, Integer> {
     @Query(value = "Call ObtenerNroMesasOcupadasPorFechaYSucursal(:fec, :idS)",
             nativeQuery = true)
     Integer obtenerNroMesasPorFechaYSucursal(@Param("fec") Date fec, @Param("idS") Integer idS);
+
+
 }

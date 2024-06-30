@@ -75,4 +75,5 @@ public class MesaService implements IMesaService {
         Integer nroMesasOcupadas = this.obtenerNroMesasOcupadasPorFechaYSucursal(fecha, idSucursal);
         return nroMesas - nroMesasOcupadas;
     }
+
 }
