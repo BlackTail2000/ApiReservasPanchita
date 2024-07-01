@@ -15,6 +15,7 @@ public class Mesa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idMesa;
+    private Integer cantMesas;
     private Integer cantSillas;
     @ManyToOne
     @JoinColumn(name = "id_sucursal")

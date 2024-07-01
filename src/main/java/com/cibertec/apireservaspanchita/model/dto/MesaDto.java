@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MesaDto {
     private Integer idMesa;
+    private Integer cantMesas;
     private Integer cantSillas;
     private Integer idSucursal;
 }

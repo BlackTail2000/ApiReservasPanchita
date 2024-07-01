@@ -7,17 +7,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface MesaRepository extends JpaRepository<Mesa, Integer> {
 
-    @Query("Select Count(M.idMesa) From Mesa M Where M.sucursal.idSucursal=:idS")
-    Integer obtenerNroMesasPorSucursal(@Param("idS") Integer idS);
+    @Query("Select M From Mesa M Where M.sucursal.idSucursal=:idS")
+    List<Mesa> obtenerMesasPorSucursal(@Param("idS") Integer idS);
 
     @Query(value = "Call ObtenerNroMesasOcupadasPorFechaYSucursal(:fec, :idS)",
             nativeQuery = true)
-    Integer obtenerNroMesasPorFechaYSucursal(@Param("fec") Date fec, @Param("idS") Integer idS);
-
-
+    Integer obtenerMesasOcupadasPorFechaYSucursal(@Param("fec") Date fec, @Param("idS") Integer idS);
 }

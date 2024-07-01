@@ -1,10 +1,8 @@
 package com.cibertec.apireservaspanchita.controller;
 
 import com.cibertec.apireservaspanchita.model.bd.Estado;
-import com.cibertec.apireservaspanchita.model.bd.Reserva;
 import com.cibertec.apireservaspanchita.model.dto.ReservaDto;
 import com.cibertec.apireservaspanchita.model.dto.ReservaDto2;
-import com.cibertec.apireservaspanchita.model.dto.ReservaDto3;
 import com.cibertec.apireservaspanchita.service.IReservaService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/reserva")
@@ -38,5 +35,18 @@ public class ReservaController {
                                                  @RequestBody ReservaDto updatedReserva) {
         ReservaDto reservaDto = iReservaService.actualizar(reservaId, updatedReserva);
         return ResponseEntity.ok(reservaDto);
+    }
+
+    @GetMapping("{idUsuario}/{estado}")
+    public ResponseEntity<List<ReservaDto2>> buscarPorIdUsuarioYEstado(@PathVariable("idUsuario") Integer idUsuario,
+                                                                       @PathVariable("estado") Estado estado) {
+        List<ReservaDto2> reservas = iReservaService.listarPorIdUsuarioYEstado(idUsuario, estado);
+        return ResponseEntity.ok(reservas);
+    }
+
+    @PutMapping("/cancelar/{idReserva}")
+    public ResponseEntity<ReservaDto> cancelarReserva(@PathVariable("idReserva") Integer idReserva) {
+        ReservaDto updatedReserva = iReservaService.cancelarReserva(idReserva);
+        return ResponseEntity.ok(updatedReserva);
     }
 }
