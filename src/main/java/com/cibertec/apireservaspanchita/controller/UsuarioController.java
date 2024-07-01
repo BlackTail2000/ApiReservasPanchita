@@ -25,4 +25,18 @@ public class UsuarioController {
         UsuarioDto usuarioRegistro = iUsuarioService.registrar(usuarioDto);
         return new ResponseEntity<>(usuarioRegistro, HttpStatus.CREATED);
     }
+
+    @PostMapping("/username")
+    public ResponseEntity<UsuarioDto> buscarPorUsername(@RequestBody UsuarioDto usuarioDto) {
+        UsuarioDto usuarioUsername = iUsuarioService.buscarPorUsername(usuarioDto.getUsername());
+        usuarioUsername.setPassword(null);
+        return ResponseEntity.ok(usuarioUsername);
+    }
+
+    @PostMapping("/email")
+    public ResponseEntity<UsuarioDto> buscarPorEmail(@RequestBody UsuarioDto usuarioDto) {
+        UsuarioDto usuarioEmail = iUsuarioService.buscarPorEmail(usuarioDto.getEmail());
+        usuarioEmail.setPassword(null);
+        return ResponseEntity.ok(usuarioEmail);
+    }
 }

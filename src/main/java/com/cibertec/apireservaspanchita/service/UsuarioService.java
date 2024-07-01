@@ -54,4 +54,22 @@ public class UsuarioService implements IUsuarioService {
         Usuario updatedUsuario = usuarioRepository.save(usuario);
         return UsuarioMapper.mapToUsuarioDto(updatedUsuario);
     }
+
+    @Override
+    public UsuarioDto buscarPorUsername(String username) {
+        Usuario usuario = usuarioRepository.findByUsername(username).orElse(null);
+        UsuarioDto usuarioDto = new UsuarioDto();
+        if(usuario != null)
+            usuarioDto = UsuarioMapper.mapToUsuarioDto(usuario);
+        return usuarioDto;
+    }
+
+    @Override
+    public UsuarioDto buscarPorEmail(String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email).orElse(null);
+        UsuarioDto usuarioDto = new UsuarioDto();
+        if(usuario != null)
+            usuarioDto = UsuarioMapper.mapToUsuarioDto(usuario);
+        return usuarioDto;
+    }
 }

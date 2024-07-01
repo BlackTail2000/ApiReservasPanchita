@@ -9,6 +9,7 @@ public class MesaMapper {
     public static MesaDto mapToMesaDto(Mesa mesa) {
         return new MesaDto(
                 mesa.getIdMesa(),
+                mesa.getCantMesas(),
                 mesa.getCantSillas(),
                 mesa.getSucursal().getIdSucursal()
         );
@@ -16,6 +17,7 @@ public class MesaMapper {
     public static Mesa mapToMesa(MesaDto mesaDto, Sucursal sucursal) {
         return new Mesa(
                 mesaDto.getIdMesa(),
+                mesaDto.getCantMesas(),
                 mesaDto.getCantSillas(),
                 sucursal
         );

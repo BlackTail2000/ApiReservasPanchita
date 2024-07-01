@@ -7,10 +7,13 @@ import com.cibertec.apireservaspanchita.model.exception.ResourceNotFoundExceptio
 import com.cibertec.apireservaspanchita.model.mapper.MesaMapper;
 import com.cibertec.apireservaspanchita.repository.MesaRepository;
 import com.cibertec.apireservaspanchita.repository.SucursalRepository;
+import com.cibertec.apireservaspanchita.utils.DateUtils;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -54,26 +57,19 @@ public class MesaService implements IMesaService {
     }
 
     @Override
-    public Integer obtenerNroMesasPorSucursal(Integer idSucursal) {
-        Sucursal sucursal = sucursalRepository.findById(idSucursal)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("No se encontró la sucursal con id: " + idSucursal));
-        return mesaRepository.obtenerNroMesasPorSucursal(idSucursal);
-    }
-
-    @Override
     public Integer obtenerNroMesasOcupadasPorFechaYSucursal(Date fecha, Integer idSucursal) {
         Sucursal sucursal = sucursalRepository.findById(idSucursal)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("No se encontró la sucursal con id: " + idSucursal));
-        return mesaRepository.obtenerNroMesasPorFechaYSucursal(fecha, idSucursal);
+        Integer nroMesasOcupadas = mesaRepository.obtenerMesasOcupadasPorFechaYSucursal(fecha, idSucursal);
+        if(nroMesasOcupadas != null)
+            return mesaRepository.obtenerMesasOcupadasPorFechaYSucursal(fecha, idSucursal);
+        else return 0;
     }
 
     @Override
     public Integer obtenerNroMesasDisponiblesPorFechaYSucursal(Date fecha, Integer idSucursal) {
-        Integer nroMesas = this.obtenerNroMesasPorSucursal(idSucursal);
-        Integer nroMesasOcupadas = this.obtenerNroMesasOcupadasPorFechaYSucursal(fecha, idSucursal);
-        return nroMesas - nroMesasOcupadas;
+        int nroMesasOcupadas = this.obtenerNroMesasOcupadasPorFechaYSucursal(fecha, idSucursal);
+        return 20 - nroMesasOcupadas;
     }
-
 }

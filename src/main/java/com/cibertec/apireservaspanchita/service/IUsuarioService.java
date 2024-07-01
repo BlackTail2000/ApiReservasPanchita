@@ -7,4 +7,6 @@ public interface IUsuarioService {
     UsuarioDto buscarPorId(Integer idUsuario);
     UsuarioDto loginUsuario(String login, String password);
     UsuarioDto actualizarUsuario(Integer idUsuario, UsuarioDto usuarioDto);
+    UsuarioDto buscarPorUsername(String username);
+    UsuarioDto buscarPorEmail(String email);
 }
