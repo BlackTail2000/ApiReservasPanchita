@@ -39,4 +39,15 @@ public class ReservaController {
         ReservaDto reservaDto = iReservaService.actualizar(reservaId, updatedReserva);
         return ResponseEntity.ok(reservaDto);
     }
+    @GetMapping("/web/{id}")
+    public ResponseEntity<Optional<Reserva>> listarPorId(@PathVariable("id") Integer reservaId) {
+        Optional<Reserva> reserva = iReservaService.listarPorId(reservaId);
+        return ResponseEntity.ok(reserva);
+    }
+    @PutMapping("/web/{id}")
+    public ResponseEntity<ReservaDto> actualizar2(@PathVariable("id") Integer reservaId,
+                                                  @RequestBody ReservaDto2 updatedReserva) {
+        ReservaDto reservaDto = iReservaService.actualizar2(reservaId, updatedReserva);
+        return ResponseEntity.ok(reservaDto);
+    }
 }
