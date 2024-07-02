@@ -7,6 +7,7 @@ import com.cibertec.apireservaspanchita.model.mapper.ReservaMapper;
 import com.cibertec.apireservaspanchita.model.mapper.ReservaMapper2;
 import com.cibertec.apireservaspanchita.repository.*;
 import com.cibertec.apireservaspanchita.utils.DateUtils;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class ReservaService implements IReservaService {
     private IMesaService mesaService;
 
     @Override
+    @Transactional(rollbackOn = Exception.class)
     public ReservaDto2 registrar(ReservaDto2 reservaDto2) {
         Sucursal sucursal = sucursalRepository.findById(reservaDto2.getIdSucursal())
                 .orElseThrow(() ->
@@ -46,6 +48,7 @@ public class ReservaService implements IReservaService {
         reservaDto2.setIdMesa(mesa.getIdMesa());
         Reserva reserva = ReservaMapper.mapToReserva(reservaDto2, horario, sucursal, usuario, mesa);
         reserva.setFechaReserva(DateUtils.addOneDay(reserva.getFechaReserva()));
+        reserva.getHorario().setHoraInicio(DateUtils.addHoursToDate(reserva.getHorario().getHoraInicio(), 5));
         reserva = reservaRepository.save(reserva);
         reservaDto2.setNumeroOrden(reserva.getNumeroOrden());
         return reservaDto2;
